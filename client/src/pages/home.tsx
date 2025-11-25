@@ -45,7 +45,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#050508]">
       <Navigation />
       <Hero />
       <FeaturedWork />
