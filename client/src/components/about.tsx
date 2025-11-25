@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import profileImage from "@assets/generated_images/abstract_tech_composition.png";
+import profileImage from "@assets/generated_images/tech_circuit_visualization.png";
 
 export function About() {
   const stats = [
