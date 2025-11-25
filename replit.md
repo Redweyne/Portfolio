@@ -90,10 +90,10 @@ Preferred communication style: Simple, everyday language.
 - esbuild - Backend bundling for production
 - tsx - TypeScript execution for development
 
-**Development Tools** (Replit-specific):
-- @replit/vite-plugin-runtime-error-modal - Error overlay
-- @replit/vite-plugin-cartographer - Code navigation
-- @replit/vite-plugin-dev-banner - Development banner
+**Development Tools**:
+- Development error overlay for better debugging
+- Code navigation and cartography tools
+- Development environment banner
 
 **Fonts**:
 - Google Fonts: Inter (400, 500, 700, 900) for UI text
