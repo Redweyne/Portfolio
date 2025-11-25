@@ -1,10 +1,11 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, Sparkles } from "lucide-react";
 import inboxAIImage from "@assets/generated_images/inboxai_application_screenshot.png";
 import tempMailImage from "@assets/generated_images/tempmail_application_screenshot.png";
 import { useRef } from "react";
+import { FlipCard3D } from "./flip-card-3d";
 
 interface Project {
   title: string;
@@ -121,21 +122,64 @@ export function FeaturedWork() {
               }`}
             >
               <div className={index % 2 === 1 ? "lg:col-start-2" : ""}>
-                <TiltCard>
-                  <Card className="group overflow-visible border-2 hover-elevate active-elevate-2 transition-all duration-300">
-                    <CardContent className="p-0">
-                      <div className="relative overflow-hidden aspect-video">
-                        <img
-                          src={project.image}
-                          alt={`${project.title} Screenshot`}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          data-testid={`img-project-${project.title.toLowerCase()}`}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </TiltCard>
+                <FlipCard3D
+                  front={
+                    <Card className="group overflow-visible border-2 h-full transition-all duration-300 shadow-lg">
+                      <CardContent className="p-0">
+                        <div className="relative overflow-hidden aspect-video">
+                          <img
+                            src={project.image}
+                            alt={`${project.title} Screenshot`}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            data-testid={`img-project-${project.title.toLowerCase()}`}
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div className="bg-white/10 backdrop-blur-sm rounded-full p-2">
+                              <Sparkles className="h-5 w-5 text-white" />
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  }
+                  back={
+                    <Card className="h-full border-2 bg-gradient-to-br from-primary/5 via-purple-500/5 to-blue-500/5 shadow-lg">
+                      <CardContent className="p-6 h-full flex flex-col justify-between">
+                        <div>
+                          <div className="flex items-center gap-2 mb-4">
+                            <Sparkles className="h-6 w-6 text-primary" />
+                            <h4 className="text-xl font-bold text-foreground">{project.title}</h4>
+                          </div>
+                          <div className="mb-4">
+                            <p className="text-sm font-semibold text-foreground mb-2">Key Features:</p>
+                            <ul className="space-y-1">
+                              {project.features.map((feature) => (
+                                <li key={feature} className="text-sm text-muted-foreground flex items-start gap-2">
+                                  <span className="text-primary mt-0.5">✓</span>
+                                  <span>{feature}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="mb-4">
+                            <p className="text-sm font-semibold text-foreground mb-2">Technologies:</p>
+                            <div className="flex flex-wrap gap-2">
+                              {project.techStack.map((tech) => (
+                                <Badge key={tech} variant="secondary" className="text-xs">
+                                  {tech}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-center mt-4">
+                          <p className="text-xs text-muted-foreground italic">Click again to flip back</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  }
+                />
               </div>
 
               <div className={index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""}>

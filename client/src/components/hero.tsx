@@ -1,6 +1,6 @@
 import { ChevronDown } from "lucide-react";
-import heroImage from "@assets/generated_images/hero_abstract_3d_visual.png";
 import { useRef, useEffect } from "react";
+import { Hero3DScene } from "./hero-3d-scene";
 
 function MagneticElement({ children, strength = 0.3 }: { children: React.ReactNode; strength?: number }) {
   const elementRef = useRef<HTMLDivElement>(null);
@@ -82,15 +82,9 @@ export function Hero() {
     >
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-background" />
       
-      <div className="absolute right-0 top-0 bottom-0 w-full lg:w-1/2 opacity-30 lg:opacity-100">
-        <img
-          src={heroImage}
-          alt="Abstract 3D Visual"
-          className="w-full h-full object-cover parallax"
-          data-speed="0.3"
-          data-testid="img-hero-visual"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/50 to-transparent" />
+      <div className="absolute right-0 top-0 bottom-0 w-full lg:w-1/2 opacity-60 lg:opacity-100">
+        <Hero3DScene />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/50 to-transparent pointer-events-none" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
