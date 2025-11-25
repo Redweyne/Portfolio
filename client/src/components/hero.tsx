@@ -82,9 +82,9 @@ export function Hero() {
     >
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-background" />
       
-      <div className="absolute right-0 top-0 bottom-0 w-full lg:w-1/2 opacity-60 lg:opacity-100">
+      <div className="absolute right-0 top-0 bottom-0 w-full lg:w-1/2">
         <Hero3DScene />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/50 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-transparent pointer-events-none lg:from-background/60" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
