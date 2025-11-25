@@ -9,10 +9,12 @@ import { apiRequest } from "@/lib/queryClient";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { insertContactMessageSchema, type InsertContactMessage } from "@shared/schema";
-import { Github, Linkedin, Mail, Send } from "lucide-react";
+import { Github, Linkedin, Mail, Send, CheckCircle2 } from "lucide-react";
+import { useState } from "react";
 
 export function Contact() {
   const { toast } = useToast();
+  const [showSuccess, setShowSuccess] = useState(false);
   
   const form = useForm<InsertContactMessage>({
     resolver: zodResolver(insertContactMessageSchema),
@@ -33,6 +35,8 @@ export function Contact() {
         description: "Thank you for reaching out. I'll get back to you soon.",
       });
       form.reset();
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 5000);
     },
     onError: (error: any) => {
       toast({
@@ -146,6 +150,16 @@ export function Contact() {
                         </>
                       )}
                     </Button>
+
+                    {showSuccess && (
+                      <div 
+                        className="flex items-center gap-2 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-950 p-4 rounded-md animate-fade-in"
+                        data-testid="message-success"
+                      >
+                        <CheckCircle2 className="h-5 w-5" />
+                        <p className="font-medium">Message sent successfully! I'll get back to you soon.</p>
+                      </div>
+                    )}
                   </form>
                 </Form>
               </CardContent>
