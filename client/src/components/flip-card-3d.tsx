@@ -78,6 +78,7 @@ export function FlipCard3D({ front, back, className = "" }: FlipCard3DProps) {
       className={`flip-card-container cursor-pointer ${className}`}
       style={{
         perspective: '1000px',
+        width: '100%',
       }}
     >
       <div

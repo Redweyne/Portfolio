@@ -117,12 +117,12 @@ export function FeaturedWork() {
           {projects.map((project, index) => (
             <div
               key={project.title}
-              className={`fade-in-section grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center ${
+              className={`fade-in-section grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 lg:auto-rows-fr ${
                 index % 2 === 1 ? "lg:grid-flow-dense" : ""
               }`}
             >
-              <div className={index % 2 === 1 ? "lg:col-start-2" : ""}>
-                <FlipCard3D
+              <div className={`h-full flex items-center ${index % 2 === 1 ? "lg:col-start-2" : ""}`}>
+                <FlipCard3D className="w-full"
                   front={
                     <Card className="group overflow-visible border-2 h-full transition-all duration-300 shadow-lg">
                       <CardContent className="p-0">
@@ -182,7 +182,7 @@ export function FeaturedWork() {
                 />
               </div>
 
-              <div className={index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""}>
+              <div className={`h-full flex flex-col justify-center ${index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""}`}>
                 <h3
                   className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4"
                   data-testid={`text-project-${project.title.toLowerCase()}`}
