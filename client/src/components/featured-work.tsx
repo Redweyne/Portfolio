@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
 import inboxAIImage from "@assets/generated_images/inboxai_application_screenshot.png";
 import tempMailImage from "@assets/generated_images/tempmail_application_screenshot.png";
+import { useRef } from "react";
 
 interface Project {
   title: string;
@@ -13,6 +14,59 @@ interface Project {
   techStack: string[];
   liveUrl: string;
   githubUrl?: string;
+}
+
+function TiltCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number>();
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    
+    const card = cardRef.current;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = ((y - centerY) / centerY) * -10;
+    const rotateY = ((x - centerX) / centerX) * 10;
+    
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+    }
+
+    rafRef.current = requestAnimationFrame(() => {
+      if (cardRef.current) {
+        cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        cardRef.current.style.transition = 'transform 0.1s ease-out';
+      }
+    });
+  };
+
+  const handleMouseLeave = () => {
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+    }
+
+    if (cardRef.current) {
+      cardRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      cardRef.current.style.transition = 'transform 0.5s ease-out';
+    }
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={className}
+    >
+      {children}
+    </div>
+  );
 }
 
 const projects: Project[] = [
@@ -67,19 +121,21 @@ export function FeaturedWork() {
               }`}
             >
               <div className={index % 2 === 1 ? "lg:col-start-2" : ""}>
-                <Card className="group overflow-hidden border-2 hover-elevate active-elevate-2 transition-all duration-300">
-                  <CardContent className="p-0">
-                    <div className="relative overflow-hidden aspect-video">
-                      <img
-                        src={project.image}
-                        alt={`${project.title} Screenshot`}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        data-testid={`img-project-${project.title.toLowerCase()}`}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </div>
-                  </CardContent>
-                </Card>
+                <TiltCard>
+                  <Card className="group overflow-visible border-2 hover-elevate active-elevate-2 transition-all duration-300">
+                    <CardContent className="p-0">
+                      <div className="relative overflow-hidden aspect-video">
+                        <img
+                          src={project.image}
+                          alt={`${project.title} Screenshot`}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          data-testid={`img-project-${project.title.toLowerCase()}`}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TiltCard>
               </div>
 
               <div className={index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""}>

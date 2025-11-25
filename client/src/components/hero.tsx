@@ -1,5 +1,71 @@
 import { ChevronDown } from "lucide-react";
 import heroImage from "@assets/generated_images/hero_abstract_3d_visual.png";
+import { useRef, useEffect } from "react";
+
+function MagneticElement({ children, strength = 0.3 }: { children: React.ReactNode; strength?: number }) {
+  const elementRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number>();
+  const currentPos = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!elementRef.current) return;
+
+      const rect = elementRef.current.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const distanceX = e.clientX - centerX;
+      const distanceY = e.clientY - centerY;
+      const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+      const maxDistance = 200;
+      let newX = 0;
+      let newY = 0;
+
+      if (distance < maxDistance) {
+        const pullStrength = (1 - distance / maxDistance) * strength;
+        newX = distanceX * pullStrength;
+        newY = distanceY * pullStrength;
+      }
+
+      if (Math.abs(newX - currentPos.current.x) < 0.5 && Math.abs(newY - currentPos.current.y) < 0.5) {
+        return;
+      }
+
+      currentPos.current = { x: newX, y: newY };
+
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+
+      rafRef.current = requestAnimationFrame(() => {
+        if (elementRef.current) {
+          elementRef.current.style.transform = `translate(${newX}px, ${newY}px)`;
+        }
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, [strength]);
+
+  return (
+    <div
+      ref={elementRef}
+      style={{
+        transition: 'transform 0.2s ease-out',
+      }}
+    >
+      {children}
+    </div>
+  );
+}
 
 export function Hero() {
   const scrollToWork = () => {
@@ -30,11 +96,13 @@ export function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
         <div className="max-w-3xl">
           <div className="animate-fade-up">
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-foreground mb-6 leading-tight" data-testid="text-hero-title">
-              <span className="inline-block bg-gradient-to-r from-primary via-purple-600 to-primary bg-[length:200%_auto] animate-gradient-shift bg-clip-text text-transparent">
-                Redweyne
-              </span>
-            </h1>
+            <MagneticElement strength={0.2}>
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-foreground mb-6 leading-tight" data-testid="text-hero-title">
+                <span className="inline-block bg-gradient-to-r from-primary via-purple-600 to-primary bg-[length:200%_auto] animate-gradient-shift bg-clip-text text-transparent">
+                  Redweyne
+                </span>
+              </h1>
+            </MagneticElement>
             <p className="text-xl sm:text-2xl md:text-3xl text-muted-foreground font-medium mb-8 animate-fade-up [animation-delay:200ms]" data-testid="text-hero-subtitle">
               Crafting Exceptional Digital Experiences
             </p>
@@ -43,14 +111,16 @@ export function Hero() {
               with beautiful, intuitive design. Explore my work and let's create
               something extraordinary together.
             </p>
-            <button
-              onClick={scrollToWork}
-              className="group flex items-center gap-2 text-primary hover:text-primary/80 transition-colors animate-fade-up [animation-delay:600ms]"
-              data-testid="button-scroll-work"
-            >
-              <span className="text-lg font-medium">View My Work</span>
-              <ChevronDown className="h-5 w-5 group-hover:translate-y-1 transition-transform" />
-            </button>
+            <MagneticElement strength={0.4}>
+              <button
+                onClick={scrollToWork}
+                className="group flex items-center gap-2 text-primary hover:text-primary/80 transition-colors animate-fade-up [animation-delay:600ms]"
+                data-testid="button-scroll-work"
+              >
+                <span className="text-lg font-medium">View My Work</span>
+                <ChevronDown className="h-5 w-5 group-hover:translate-y-1 transition-transform" />
+              </button>
+            </MagneticElement>
           </div>
         </div>
       </div>

@@ -1,11 +1,50 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import profileImage from "@assets/generated_images/tech_circuit_visualization.png";
+import { useEffect, useRef, useState } from "react";
+
+function useCounterAnimation(end: number, duration: number = 2000) {
+  const [count, setCount] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
+  const elementRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !hasStarted) {
+          setHasStarted(true);
+          let startTime: number | null = null;
+          const animate = (currentTime: number) => {
+            if (!startTime) startTime = currentTime;
+            const progress = Math.min((currentTime - startTime) / duration, 1);
+            
+            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+            setCount(Math.floor(easeOutQuart * end));
+            
+            if (progress < 1) {
+              requestAnimationFrame(animate);
+            }
+          };
+          requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [end, duration, hasStarted]);
+
+  return { count, elementRef };
+}
 
 export function About() {
   const stats = [
-    { label: "Projects Completed", value: "20+" },
-    { label: "Technologies Mastered", value: "15+" }
+    { label: "Projects Completed", value: 20, suffix: "+" },
+    { label: "Technologies Mastered", value: 15, suffix: "+" }
   ];
 
   return (
@@ -51,23 +90,29 @@ export function About() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-8">
-              {stats.map((stat) => (
-                <Card
-                  key={stat.label}
-                  className="hover-elevate transition-all duration-300"
-                  data-testid={`card-stat-${stat.label.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
-                >
-                  <CardContent className="p-6 text-center">
-                    <div className="text-3xl font-bold text-primary mb-2">
-                      {stat.value}
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      {stat.label}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-8">
+              {stats.map((stat) => {
+                const StatCard = () => {
+                  const { count, elementRef } = useCounterAnimation(stat.value);
+                  return (
+                    <Card
+                      key={stat.label}
+                      className="hover-elevate transition-all duration-300"
+                      data-testid={`card-stat-${stat.label.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
+                    >
+                      <CardContent className="p-6 text-center">
+                        <div ref={elementRef} className="text-3xl font-bold text-primary mb-2">
+                          {count}{stat.suffix}
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          {stat.label}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                };
+                return <StatCard key={stat.label} />;
+              })}
             </div>
           </div>
         </div>
