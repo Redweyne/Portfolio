@@ -1,10 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import profileImage from "@assets/generated_images/professional_developer_headshot.png";
+import profileImage from "@assets/generated_images/abstract_tech_composition.png";
 
 export function About() {
   const stats = [
-    { label: "Years of Experience", value: "5+" },
     { label: "Projects Completed", value: "20+" },
     { label: "Technologies Mastered", value: "15+" }
   ];
@@ -38,24 +37,17 @@ export function About() {
 
           <div className="lg:col-span-3 fade-in-section space-y-6">
             <div className="prose prose-lg max-w-none">
-              <p className="text-foreground text-lg leading-relaxed" data-testid="text-about-intro">
-                Hi! I'm <span className="font-semibold text-primary">Redweyne</span>,
-                a creative developer with a passion for building exceptional digital
-                experiences. I specialize in crafting modern web applications that
-                combine cutting-edge technology with intuitive, beautiful design.
+              <p className="text-foreground text-xl sm:text-2xl font-medium leading-relaxed mb-8" data-testid="text-about-intro">
+                Who I am matters far less than what I can deliver for you. My value isn't measured in credentials or timelines—it's proven through the solutions I build and the problems I solve.
               </p>
-              <p className="text-muted-foreground leading-relaxed" data-testid="text-about-journey">
-                My journey in software development has been driven by curiosity and a
-                commitment to excellence. I believe great applications are born from the
-                intersection of powerful functionality and thoughtful user experience.
-                Whether it's AI-powered tools like InboxAI or privacy-focused services
-                like TempMail, I strive to create solutions that truly make a difference.
+              <p className="text-muted-foreground text-lg leading-relaxed" data-testid="text-about-journey">
+                I'm <span className="font-semibold text-primary">Redweyne</span>, and I don't just write code—I architect digital experiences that transform how you work and interact online. Every project I touch is an opportunity to push boundaries, whether it's developing AI-powered tools that intelligently manage thousands of emails or creating privacy-first platforms that put control back in users' hands.
               </p>
-              <p className="text-muted-foreground leading-relaxed" data-testid="text-about-passion">
-                When I'm not coding, you'll find me exploring new technologies,
-                contributing to open-source projects, or sharing knowledge with the
-                developer community. I'm always excited to tackle new challenges and
-                collaborate on innovative projects.
+              <p className="text-muted-foreground text-lg leading-relaxed" data-testid="text-about-passion">
+                The web is saturated with mediocre applications that merely function. I build solutions that excel—combining cutting-edge technology with ruthless attention to user experience. My approach is simple: understand the core problem, eliminate unnecessary complexity, and deliver results that speak louder than promises.
+              </p>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                If you need someone who executes with precision, thinks beyond the obvious, and delivers applications that your users will actually want to use—you're in the right place. Let's build something exceptional.
               </p>
             </div>
 

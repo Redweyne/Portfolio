@@ -27,7 +27,7 @@ const projects: Project[] = [
       "Priority detection"
     ],
     techStack: ["React", "TypeScript", "AI/ML", "Node.js", "PostgreSQL"],
-    liveUrl: "https://redweyne.com/InboxAI"
+    liveUrl: "https://redweyne.com/inboxai/"
   },
   {
     title: "TempMail",
