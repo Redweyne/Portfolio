@@ -3,6 +3,7 @@ import { Navigation } from "@/components/navigation";
 import { Hero } from "@/components/hero";
 import { FeaturedWork } from "@/components/featured-work";
 import { Skills } from "@/components/skills";
+import { Process } from "@/components/process";
 import { About } from "@/components/about";
 import { Contact } from "@/components/contact";
 import { Footer } from "@/components/footer";
@@ -50,6 +51,7 @@ export default function Home() {
       <Hero />
       <FeaturedWork />
       <Skills />
+      <Process />
       <About />
       <Contact />
       <Footer />
