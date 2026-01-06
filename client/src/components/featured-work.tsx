@@ -2,6 +2,7 @@ import { ExternalLink, Terminal, Database, Shield, Cpu, ArrowRight } from "lucid
 import inboxAIImage from "@assets/generated_images/inboxai_application_screenshot.svg";
 import tempMailImage from "@assets/generated_images/tempmail_application_screenshot.svg";
 import { useState } from "react";
+import { usePrefersReducedMotion, useVisibilityObserver } from "@/hooks/use-visibility";
 
 interface Project {
   id: string;
@@ -52,10 +53,13 @@ const projects: Project[] = [
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [isHovered, setIsHovered] = useState(false);
+  const { ref, isVisible } = useVisibilityObserver<HTMLDivElement>({ threshold: 0.3 });
+  const prefersReducedMotion = usePrefersReducedMotion();
   const compactFeatures = project.features.slice(0, 3);
 
   return (
     <div
+      ref={ref}
       className={`grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start md:items-center ${
         index % 2 === 1 ? 'md:grid-flow-dense' : ''
       }`}
@@ -80,6 +84,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               <img
                 src={project.image}
                 alt={project.title}
+                loading="lazy"
+                decoding="async"
+                sizes="(min-width: 1280px) 640px, (min-width: 768px) 70vw, 100vw"
                 className={`w-full h-full object-cover transition-all duration-700 ${
                   isHovered ? 'scale-110 brightness-110' : 'scale-100 brightness-90'
                 }`}
@@ -99,7 +106,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00ffff] via-[#ff00ff] to-[#00ffff]" 
                style={{ 
                  backgroundSize: '200% 100%',
-                 animation: isHovered ? 'energyFlow 2s linear infinite' : 'none'
+                 animation: prefersReducedMotion || !isVisible ? 'none' : isHovered ? 'energyFlow 2s linear infinite' : 'none'
                }} 
           />
         </div>

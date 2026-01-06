@@ -16,6 +16,7 @@ import {
   Workflow,
   Zap
 } from "lucide-react";
+import { usePrefersReducedMotion, useVisibilityObserver } from "@/hooks/use-visibility";
 
 interface Skill {
   name: string;
@@ -44,20 +45,27 @@ const categories = Array.from(new Set(skills.map(skill => skill.category)));
 function SkillBar({ skill, delay }: { skill: Skill; delay: number }) {
   const [width, setWidth] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      setIsVisible(true);
+      setWidth(skill.level);
+      return;
+    }
+
     const timer = setTimeout(() => {
       setIsVisible(true);
       setWidth(skill.level);
     }, delay);
     return () => clearTimeout(timer);
-  }, [skill.level, delay]);
+  }, [skill.level, delay, prefersReducedMotion]);
 
   return (
     <div
       className={`cyber-card p-3 sm:p-4 group hover:border-[#00ffff] transition-all duration-300 ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-      }`}
+      } ${prefersReducedMotion ? "motion-reduce:transition-none" : ""}`}
       style={{ transition: "opacity 0.5s ease, transform 0.5s ease, border-color 0.3s ease" }}
     >
       <div className="flex items-center justify-between mb-3 sm:mb-4">
@@ -87,8 +95,12 @@ function SkillBar({ skill, delay }: { skill: Skill; delay: number }) {
 
 function SystemStatus() {
   const [stats, setStats] = useState({ cpu: 0, memory: 0, uptime: 0 });
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const { ref, isVisible } = useVisibilityObserver<HTMLDivElement>({ threshold: 0.3 });
 
   useEffect(() => {
+    if (prefersReducedMotion || !isVisible) return;
+
     const interval = setInterval(() => {
       setStats({
         cpu: Math.floor(Math.random() * 30) + 45,
@@ -97,10 +109,10 @@ function SystemStatus() {
       });
     }, 2000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isVisible, prefersReducedMotion]);
 
   return (
-    <div className="cyber-card p-3 sm:p-6 mb-8 sm:mb-12">
+    <div ref={ref} className="cyber-card p-3 sm:p-6 mb-8 sm:mb-12">
       <div className="flex items-center gap-2 mb-3 sm:hidden">
         <Terminal className="w-5 h-5 text-[#00ffff]" aria-hidden="true" />
         <span className="font-mono text-sm text-[#00ffff] tracking-widest">SYSTEM_DIAGNOSTICS</span>

@@ -113,11 +113,17 @@ function GlitchText({ children, className = "", isActive, prefersReducedMotion }
   );
 }
 
-function TypewriterText({ text, delay = 0 }: { text: string; delay?: number }) {
+function TypewriterText({ text, delay = 0, prefersReducedMotion }: { text: string; delay?: number; prefersReducedMotion: boolean }) {
   const [displayText, setDisplayText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      setDisplayText(text);
+      setShowCursor(false);
+      return;
+    }
+
     const timeout = setTimeout(() => {
       let index = 0;
       const interval = setInterval(() => {
@@ -136,11 +142,13 @@ function TypewriterText({ text, delay = 0 }: { text: string; delay?: number }) {
   }, [text, delay]);
 
   useEffect(() => {
+    if (prefersReducedMotion) return;
+
     const cursorInterval = setInterval(() => {
       setShowCursor(prev => !prev);
     }, 500);
     return () => clearInterval(cursorInterval);
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <span className="font-mono">
@@ -321,7 +329,7 @@ export function Hero() {
           <div className="inline-block mb-4">
             <div className="cyber-card px-6 py-2 corner-accent">
               <span className="font-mono text-sm text-[#00ffff] tracking-widest">
-                <TypewriterText text="// INITIALIZING NEURAL INTERFACE..." delay={500} />
+                <TypewriterText text="// INITIALIZING NEURAL INTERFACE..." delay={500} prefersReducedMotion={prefersReducedMotion} />
               </span>
             </div>
           </div>

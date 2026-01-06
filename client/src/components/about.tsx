@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { User, Award, Code, Clock, MapPin, Zap } from "lucide-react";
 import profileImage from "@assets/generated_images/tech_circuit_visualization.svg";
+import { usePrefersReducedMotion, useVisibilityObserver } from "@/hooks/use-visibility";
 
 function useCounterAnimation(end: number, duration: number = 2000) {
   const [count, setCount] = useState(0);
@@ -51,8 +52,14 @@ const terminalContent = [
 
 function DataTerminal() {
   const [lineCount, setLineCount] = useState(0);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const { ref, isVisible } = useVisibilityObserver<HTMLDivElement>({
+    threshold: 0.25,
+  });
 
   useEffect(() => {
+    if (prefersReducedMotion || !isVisible) return;
+
     const interval = setInterval(() => {
       setLineCount(prev => {
         if (prev < terminalContent.length) {
@@ -63,12 +70,12 @@ function DataTerminal() {
       });
     }, 400);
     return () => clearInterval(interval);
-  }, []);
+  }, [isVisible, prefersReducedMotion]);
 
   const visibleLines = terminalContent.slice(0, lineCount);
 
   return (
-    <div className="cyber-card p-4 font-mono text-xs h-48 overflow-hidden">
+    <div ref={ref} className="cyber-card p-4 font-mono text-xs h-48 overflow-hidden">
       <div className="flex items-center gap-2 mb-3 pb-2 border-b border-[#00ffff]/20">
         <div className="flex gap-1.5">
           <div className="w-2 h-2 rounded-full bg-[#ff0033]" />
@@ -159,6 +166,9 @@ export function About() {
                   <img
                     src={profileImage}
                     alt="Redweyne"
+                    loading="lazy"
+                    decoding="async"
+                    sizes="(min-width: 1024px) 50vw, 100vw"
                     className="w-full h-full object-cover filter saturate-75 contrast-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#050508] via-transparent to-transparent" />
