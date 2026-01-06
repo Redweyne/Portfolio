@@ -178,14 +178,14 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export function FeaturedWork() {
   return (
-    <section id="work" className="py-24 md:py-32 bg-[#050508] relative overflow-hidden">
-      <div className="absolute inset-0 hex-grid opacity-5" />
+    <section id="work" className="py-20 sm:py-24 md:py-32 bg-[#050508] relative overflow-hidden">
+      <div className="absolute inset-0 hex-grid opacity-5 hidden sm:block" />
       
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00ffff]/50 to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00ffff]/50 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-20 space-y-4">
+        <div className="text-center mb-12 sm:mb-16 md:mb-20 space-y-4">
           <div className="inline-block">
             <div className="cyber-card px-6 py-2">
               <span className="font-mono text-sm text-[#00ffff] tracking-widest">
@@ -194,19 +194,19 @@ export function FeaturedWork() {
             </div>
           </div>
           
-          <h2 className="cyber-text text-4xl sm:text-5xl md:text-6xl font-bold text-white">
+          <h2 className="cyber-text text-3xl sm:text-5xl md:text-6xl font-bold text-white">
             <span className="text-glow-cyan">PROJECT</span>{" "}
             <span className="text-[#ff00ff] text-glow-magenta">ARCHIVE</span>
           </h2>
           
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg">
             <span className="text-[#00ffff]">&lt;</span>
             Deployed systems showcasing advanced engineering and innovative solutions
             <span className="text-[#00ffff]">/&gt;</span>
           </p>
         </div>
 
-        <div className="space-y-32">
+        <div className="space-y-16 sm:space-y-24 md:space-y-32">
           {projects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}

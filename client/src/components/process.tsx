@@ -52,13 +52,13 @@ export function Process() {
   return (
     <section
       id="process"
-      className="py-24 md:py-32 bg-[#050508] relative overflow-hidden"
+      className="py-16 sm:py-24 md:py-32 bg-[#050508] relative overflow-hidden"
     >
-      <div className="absolute inset-0 hex-grid opacity-5" />
+      <div className="absolute inset-0 hex-grid opacity-5 hidden sm:block" />
       <div className="absolute top-16 left-0 w-64 h-64 bg-[#00ffff]/5 rounded-full blur-3xl" />
       <div className="absolute bottom-8 right-0 w-72 h-72 bg-[#ff00ff]/5 rounded-full blur-3xl" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative space-y-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative space-y-10 sm:space-y-12">
         <div className="text-center space-y-4">
           <div className="inline-block">
             <div className="cyber-card px-6 py-2">
@@ -68,19 +68,19 @@ export function Process() {
             </div>
           </div>
 
-          <h2 className="cyber-text text-4xl sm:text-5xl md:text-6xl font-bold text-white">
+          <h2 className="cyber-text text-3xl sm:text-5xl md:text-6xl font-bold text-white">
             <span className="text-glow-cyan">OPERATING</span>{" "}
             <span className="text-[#ff00ff] text-glow-magenta">SYSTEM</span>
           </h2>
 
-          <p className="text-gray-400 max-w-3xl mx-auto text-lg">
+          <p className="text-gray-400 max-w-3xl mx-auto text-base sm:text-lg">
             <span className="text-[#00ffff]">&lt;</span>
             A reliable delivery loop—discovery, build, deploy—designed for founders and teams who need to see progress every single week.
             <span className="text-[#00ffff]">/&gt;</span>
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {phases.map((phase) => (
             <div
               key={phase.code}
@@ -98,10 +98,10 @@ export function Process() {
                 </div>
               </div>
 
-              <h3 className="text-white text-2xl font-bold cyber-text">
+              <h3 className="text-white text-xl sm:text-2xl font-bold cyber-text">
                 {phase.title}
               </h3>
-              <p className="text-gray-300 leading-relaxed text-sm">{phase.description}</p>
+              <p className="text-gray-300 leading-relaxed text-sm sm:text-base">{phase.description}</p>
 
               <div className="space-y-2">
                 {phase.highlights.map((highlight) => (
