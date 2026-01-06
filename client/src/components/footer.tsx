@@ -57,7 +57,7 @@ export function Footer() {
                 <button
                   key={link.id}
                   onClick={() => scrollToSection(link.id)}
-                  className="block font-mono text-sm text-gray-500 hover:text-[#00ffff] transition-colors group"
+                  className="block font-mono text-sm text-gray-500 hover:text-[#00ffff] transition-colors group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#00ffff] focus-visible:underline focus-visible:underline-offset-8"
                 >
                   <span className="text-[#00ffff]/50 mr-2">0{index + 1}.</span>
                   {link.label}
@@ -105,6 +105,32 @@ export function Footer() {
       <div className="h-1 bg-gradient-to-r from-[#00ffff] via-[#ff00ff] to-[#00ffff]" 
            style={{ backgroundSize: '200% 100%', animation: 'energyFlow 3s linear infinite' }} 
       />
+
+      <div className="fixed bottom-4 left-4 right-4 md:hidden z-30">
+        <div className="bg-[#050508]/95 border border-[#00ffff]/30 rounded-2xl shadow-[0_10px_50px_rgba(0,255,255,0.18)] backdrop-blur-md px-4 py-3 flex items-center justify-between">
+          <button
+            onClick={() => scrollToSection("hero")}
+            className="flex flex-col items-center gap-1 text-xs font-mono text-gray-200 hover:text-[#00ffff] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#00ffff]"
+          >
+            <span className="h-2 w-2 rounded-full bg-[#00ffff]/60" />
+            HOME
+          </button>
+          <button
+            onClick={() => scrollToSection("work")}
+            className="flex flex-col items-center gap-1 text-xs font-mono text-gray-200 hover:text-[#00ffff] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#00ffff]"
+          >
+            <span className="h-2 w-2 rounded-full bg-[#00ffff]/60" />
+            WORK
+          </button>
+          <button
+            onClick={() => scrollToSection("contact")}
+            className="flex flex-col items-center gap-1 text-xs font-mono text-gray-200 hover:text-[#00ffff] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#00ffff]"
+          >
+            <span className="h-2 w-2 rounded-full bg-[#00ffff]/60" />
+            CONTACT
+          </button>
+        </div>
+      </div>
     </footer>
   );
 }
