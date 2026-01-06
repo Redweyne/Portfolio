@@ -128,13 +128,13 @@ export function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-24 md:py-32 bg-[#0a0a0f] relative overflow-hidden">
+    <section id="contact" className="py-16 sm:py-24 md:py-32 bg-[#0a0a0f] relative overflow-hidden">
       <div className="absolute inset-0 cyber-grid-bg" />
       
-      <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#00ffff]/30 to-transparent" />
+      <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#00ffff]/30 to-transparent hidden sm:block" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-16 space-y-4">
+        <div className="text-center mb-12 sm:mb-16 space-y-4">
           <div className="inline-block">
             <div className="cyber-card px-6 py-2">
               <span className="font-mono text-sm text-[#00ffff] tracking-widest">
@@ -143,19 +143,19 @@ export function Contact() {
             </div>
           </div>
           
-          <h2 className="cyber-text text-4xl sm:text-5xl md:text-6xl font-bold text-white">
+          <h2 className="cyber-text text-3xl sm:text-5xl md:text-6xl font-bold text-white">
             <span className="text-glow-cyan">ESTABLISH</span>{" "}
             <span className="text-[#ff00ff] text-glow-magenta">UPLINK</span>
           </h2>
           
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg">
             <span className="text-[#00ffff]">&lt;</span>
             Initiate secure communication channel for project collaboration
             <span className="text-[#00ffff]">/&gt;</span>
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
           <div className="lg:col-span-2">
             <div className="cyber-card overflow-hidden">
               <div className="bg-[#0a0a0f] border-b border-[#00ffff]/20 px-6 py-4 flex items-center gap-3">
