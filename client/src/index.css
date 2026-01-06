@@ -57,6 +57,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
+  font-weight: 500;
 }
 
 body::before {
@@ -466,4 +467,10 @@ body::after {
 ::selection {
   background: var(--cyber-cyan);
   color: var(--cyber-dark);
+}
+
+@media (max-width: 640px) {
+  body {
+    font-weight: 400;
+  }
 }

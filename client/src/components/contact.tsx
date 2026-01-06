@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { insertContactMessageSchema, type InsertContactMessage } from "@shared/schema";
 import { Github, Linkedin, Mail, Send, CheckCircle2, Terminal, Wifi, AlertCircle, ChevronDown } from "lucide-react";
 import { useState, useEffect, forwardRef } from "react";
+import { usePrefersReducedMotion, useVisibilityObserver } from "@/hooks/use-visibility";
 
 interface TerminalInputProps {
   label: string;
@@ -63,16 +64,20 @@ const TerminalInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, Termina
 
 function ConnectionStatus() {
   const [ping, setPing] = useState(0);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const { ref, isVisible } = useVisibilityObserver<HTMLDivElement>({ threshold: 0.3 });
   
   useEffect(() => {
+    if (prefersReducedMotion || !isVisible) return;
+
     const interval = setInterval(() => {
       setPing(Math.floor(Math.random() * 50) + 10);
     }, 2000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isVisible, prefersReducedMotion]);
 
   return (
-    <div className="font-mono text-xs">
+    <div ref={ref} className="font-mono text-xs">
       <div className="flex items-center justify-between mb-3">
         <span className="text-[#00ffff] tracking-widest">CONNECTION_STATUS</span>
         <Wifi className="w-4 h-4 text-[#00ff66]" />
