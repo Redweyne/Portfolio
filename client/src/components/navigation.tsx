@@ -24,6 +24,7 @@ export function Navigation() {
   const navLinks = [
     { id: "work", label: "PROJECTS" },
     { id: "skills", label: "SYSTEMS" },
+    { id: "process", label: "OPERATING" },
     { id: "about", label: "PROFILE" },
     { id: "contact", label: "UPLINK" },
   ];

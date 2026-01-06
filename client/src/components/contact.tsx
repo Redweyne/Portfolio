@@ -122,8 +122,8 @@ export function Contact() {
   };
 
   const socialLinks = [
-    { icon: <Github className="h-5 w-5" />, label: "GITHUB", url: "#", code: "GH-001" },
-    { icon: <Linkedin className="h-5 w-5" />, label: "LINKEDIN", url: "#", code: "LI-002" },
+    { icon: <Github className="h-5 w-5" />, label: "GITHUB", url: "https://github.com/Redweyne", code: "GH-001" },
+    { icon: <Linkedin className="h-5 w-5" />, label: "LINKEDIN", url: "https://www.linkedin.com/in/redweyne", code: "LI-002" },
     { icon: <Mail className="h-5 w-5" />, label: "DIRECT_MAIL", url: "mailto:hello@redweyne.com", code: "ML-003" }
   ];
 

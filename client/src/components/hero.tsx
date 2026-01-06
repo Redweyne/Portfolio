@@ -1,4 +1,4 @@
-import { ChevronDown, Terminal, Cpu, Zap } from "lucide-react";
+import { ChevronDown, Terminal, Cpu, Zap, Gauge, Sparkles, Globe2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 function MatrixRain() {
@@ -229,6 +229,24 @@ function DataLines() {
 }
 
 export function Hero() {
+  const signalCards = [
+    {
+      title: "Full-stack Delivery",
+      meta: "React • TypeScript • Node • Postgres",
+      icon: Sparkles,
+    },
+    {
+      title: "Realtime & AI Native",
+      meta: "WebSockets • Background jobs • AI copilots",
+      icon: Gauge,
+    },
+    {
+      title: "Experience Design",
+      meta: "Motion-first interfaces with 3D flourishes",
+      icon: Globe2,
+    },
+  ];
+
   const scrollToWork = () => {
     const element = document.getElementById("work");
     if (element) {
@@ -275,10 +293,33 @@ export function Hero() {
 
           <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed font-light">
             <span className="text-[#00ffff]">&lt;</span>
-            Engineering next-generation digital experiences through 
-            <span className="text-[#ff00ff]"> advanced technology </span>
-            and 
-            <span className="text-[#00ffff]"> innovative design</span>
+            I build production-ready interfaces, realtime systems, and AI-assisted tools that feel fast, intentional, and resilient.
+            <span className="text-[#00ffff]">/&gt;</span>
+          </p>
+
+          <p className="text-gray-400 max-w-3xl mx-auto font-mono text-sm tracking-widest">
+            AVAILABLE FOR HIGH-IMPACT BUILDS • PREFERRED STACK: REACT / TYPESCRIPT / NODE / POSTGRES • REMOTE-FIRST
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+            {signalCards.map((card) => (
+              <div
+                key={card.title}
+                className="cyber-card p-4 border border-[#00ffff]/20 hover:border-[#00ffff] transition-all duration-300"
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <card.icon className="w-5 h-5 text-[#00ffff]" />
+                  <span className="font-mono text-xs text-[#ff00ff] tracking-widest">SIGNAL</span>
+                </div>
+                <div className="text-white text-lg font-semibold">{card.title}</div>
+                <p className="text-gray-400 text-sm">{card.meta}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed font-light">
+            <span className="text-[#00ffff]">&lt;</span>
+            From the first spike to production, you get weekly, demoable progress and architecture that stays maintainable after launch.
             <span className="text-[#00ffff]">/&gt;</span>
           </p>
 

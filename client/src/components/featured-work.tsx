@@ -1,6 +1,6 @@
 import { ExternalLink, Terminal, Database, Shield, Cpu, ArrowRight } from "lucide-react";
-import inboxAIImage from "@assets/generated_images/inboxai_application_screenshot.png";
-import tempMailImage from "@assets/generated_images/tempmail_application_screenshot.png";
+import inboxAIImage from "@assets/generated_images/inboxai_application_screenshot.svg";
+import tempMailImage from "@assets/generated_images/tempmail_application_screenshot.svg";
 import { useState } from "react";
 
 interface Project {

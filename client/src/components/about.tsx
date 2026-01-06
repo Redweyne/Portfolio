@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { User, Award, Code, Clock, MapPin, Zap } from "lucide-react";
-import profileImage from "@assets/generated_images/tech_circuit_visualization.png";
+import profileImage from "@assets/generated_images/tech_circuit_visualization.svg";
 
 function useCounterAnimation(end: number, duration: number = 2000) {
   const [count, setCount] = useState(0);
