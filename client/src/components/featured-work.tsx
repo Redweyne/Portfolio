@@ -52,16 +52,17 @@ const projects: Project[] = [
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [isHovered, setIsHovered] = useState(false);
+  const compactFeatures = project.features.slice(0, 3);
 
   return (
     <div
-      className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center ${
-        index % 2 === 1 ? 'lg:grid-flow-dense' : ''
+      className={`grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start md:items-center ${
+        index % 2 === 1 ? 'md:grid-flow-dense' : ''
       }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className={`relative group ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
+      <div className={`relative group ${index % 2 === 1 ? 'md:col-start-2 md:order-2' : 'md:order-1'}`}>
         <div className="absolute -inset-4 bg-gradient-to-r from-[#00ffff]/20 via-[#ff00ff]/20 to-[#00ffff]/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         
         <div className="relative cyber-card overflow-hidden corner-accent">
@@ -104,7 +105,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </div>
       </div>
 
-      <div className={`space-y-6 ${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
+      <div className={`space-y-6 ${index % 2 === 1 ? 'md:col-start-1 md:row-start-1 md:order-1' : 'md:order-2'}`}>
         <div className="space-y-2">
           <div className="flex items-center gap-3">
             <span className="font-mono text-[#ff00ff] text-sm">#{project.id}</span>
@@ -121,7 +122,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           </p>
         </div>
 
-        <p className="text-gray-400 leading-relaxed text-lg">
+        <p className="text-gray-400 leading-relaxed text-lg line-clamp-1 md:line-clamp-none">
           {project.description}
         </p>
 
@@ -130,8 +131,19 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             <Terminal className="w-4 h-4" />
             SYSTEM CAPABILITIES
           </h4>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {project.features.map((feature, i) => (
+          <div className="md:hidden space-y-3">
+            {compactFeatures.map((feature) => (
+              <div
+                key={feature}
+                className="flex items-center gap-2 text-gray-300 font-mono text-sm"
+              >
+                <span className="text-[#00ffff]">▹</span>
+                {feature}
+              </div>
+            ))}
+          </div>
+          <div className="hidden md:grid md:grid-cols-1 lg:grid-cols-2 gap-2">
+            {project.features.map((feature) => (
               <div
                 key={feature}
                 className="flex items-center gap-2 text-gray-300 font-mono text-sm"
@@ -148,24 +160,32 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             <Cpu className="w-4 h-4" />
             TECH MATRIX
           </h4>
-          <div className="flex flex-wrap gap-2">
-            {project.techStack.map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1 border border-[#00ffff]/30 text-[#00ffff] font-mono text-xs tracking-wider hover:bg-[#00ffff]/10 hover:border-[#00ffff] transition-all cursor-default"
-              >
-                {tech}
-              </span>
-            ))}
+          <div className="relative">
+            <div className="flex gap-2 overflow-x-auto pb-3 md:pb-0 md:flex-wrap md:overflow-visible snap-x snap-mandatory -mx-1 md:mx-0">
+              {project.techStack.map((tech) => (
+                <span
+                  key={tech}
+                  className="snap-start mx-1 md:mx-0 inline-flex items-center justify-center min-h-[44px] px-4 py-2 rounded-full border border-[#00ffff]/30 text-[#00ffff] font-mono text-xs tracking-wider hover:bg-[#00ffff]/10 hover:border-[#00ffff] transition-all cursor-default whitespace-nowrap"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 md:hidden pointer-events-none">
+              <div className="flex items-center gap-1 bg-[#050508]/90 border border-[#00ffff]/40 text-[#00ffff] font-mono text-[11px] px-3 py-1 rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00ffff] animate-pulse" />
+                <span>SWIPE</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="pt-4">
+        <div className="pt-2 md:pt-4">
           <a
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="cyber-button inline-flex items-center gap-2 group"
+            className="cyber-button inline-flex items-center gap-2 group w-full md:w-auto justify-center min-h-[44px] px-6 py-3"
           >
             <span>LAUNCH SYSTEM</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
