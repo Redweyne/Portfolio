@@ -1,10 +1,12 @@
 import { ChevronDown, Terminal, Cpu, Zap, Gauge, Sparkles, Globe2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-function MatrixRain() {
+function MatrixRain({ isActive, prefersReducedMotion }: { isActive: boolean; prefersReducedMotion: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    if (!isActive || prefersReducedMotion) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -61,7 +63,7 @@ function MatrixRain() {
       clearInterval(interval);
       window.removeEventListener('resize', resizeCanvas);
     };
-  }, []);
+  }, [isActive, prefersReducedMotion]);
 
   return (
     <canvas
@@ -72,17 +74,19 @@ function MatrixRain() {
   );
 }
 
-function GlitchText({ children, className = "" }: { children: string; className?: string }) {
+function GlitchText({ children, className = "", isActive, prefersReducedMotion }: { children: string; className?: string; isActive: boolean; prefersReducedMotion: boolean }) {
   const [isGlitching, setIsGlitching] = useState(false);
 
   useEffect(() => {
+    if (prefersReducedMotion || !isActive) return;
+
     const glitchInterval = setInterval(() => {
       setIsGlitching(true);
       setTimeout(() => setIsGlitching(false), 200);
     }, 3000 + Math.random() * 2000);
 
     return () => clearInterval(glitchInterval);
-  }, []);
+  }, [isActive, prefersReducedMotion]);
 
   return (
     <span className={`relative inline-block ${className}`}>
@@ -166,7 +170,7 @@ function HexagonGrid() {
   );
 }
 
-function FloatingIcons() {
+function FloatingIcons({ isActive, prefersReducedMotion }: { isActive: boolean; prefersReducedMotion: boolean }) {
   const icons = [
     { Icon: Terminal, x: '10%', y: '20%', delay: 0 },
     { Icon: Cpu, x: '85%', y: '30%', delay: 1 },
@@ -183,7 +187,7 @@ function FloatingIcons() {
           style={{
             left: item.x,
             top: item.y,
-            animation: `float 6s ease-in-out infinite`,
+            animation: prefersReducedMotion || !isActive ? 'none' : `float 6s ease-in-out infinite`,
             animationDelay: `${item.delay}s`,
           }}
         >
@@ -229,6 +233,44 @@ function DataLines() {
 }
 
 export function Hero() {
+  const heroRef = useRef<HTMLElement | null>(null);
+  const [isHeroVisible, setIsHeroVisible] = useState(true);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [isSmUp, setIsSmUp] = useState(() => typeof window !== "undefined" ? window.innerWidth >= 640 : false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const handleChange = (event: MediaQueryListEvent) => setPrefersReducedMotion(event.matches);
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
+  useEffect(() => {
+    const onResize = () => setIsSmUp(window.innerWidth >= 640);
+    onResize();
+    window.addEventListener("resize", onResize);
+
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
+    const node = heroRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => setIsHeroVisible(entry.isIntersecting));
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, []);
   const signalCards = [
     {
       title: "Full-stack Delivery",
@@ -257,12 +299,19 @@ export function Hero() {
   return (
     <section
       id="hero"
+      ref={heroRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#050508]"
     >
-      <MatrixRain />
-      <HexagonGrid />
-      <FloatingIcons />
-      <DataLines />
+      <div className="absolute inset-0 sm:hidden bg-gradient-to-b from-[#0c111d] via-[#090b12] to-[#050508] bg-noise-soft motion-reduce:animation-none motion-reduce:transition-none" />
+
+      {isSmUp && (
+        <>
+          <MatrixRain isActive={isHeroVisible} prefersReducedMotion={prefersReducedMotion} />
+          <HexagonGrid />
+          <FloatingIcons isActive={isHeroVisible} prefersReducedMotion={prefersReducedMotion} />
+          <DataLines />
+        </>
+      )}
       <StatusBar />
 
       <div className="absolute inset-0 bg-gradient-radial from-transparent via-[#050508]/50 to-[#050508]" />
@@ -278,10 +327,46 @@ export function Hero() {
           </div>
 
           <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black tracking-tight leading-tight">
-            <GlitchText className="cyber-text bg-gradient-to-r from-[#00ffff] via-[#ff00ff] to-[#00ffff] bg-clip-text text-transparent cyber-glow">
+            <GlitchText
+              className="cyber-text bg-gradient-to-r from-[#00ffff] via-[#ff00ff] to-[#00ffff] bg-clip-text text-transparent cyber-glow"
+              isActive={isHeroVisible}
+              prefersReducedMotion={prefersReducedMotion}
+            >
               REDWEYNE
             </GlitchText>
           </h1>
+
+          <div className="sm:hidden w-full bg-black/40 border border-[#00ffff]/20 rounded-2xl p-4 space-y-3 cyber-card bg-noise-soft">
+            <div className="flex flex-col gap-2">
+              <button
+                onClick={scrollToWork}
+                className="cyber-button group w-full"
+              >
+                <span className="relative z-10 flex items-center gap-2 justify-center">
+                  ACCESS PROJECTS
+                  <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
+                </span>
+              </button>
+
+              <button
+                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                className="border border-[#ff00ff] text-[#ff00ff] px-6 py-3 font-mono tracking-wider hover:bg-[#ff00ff] hover:text-black transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,0,255,0.5)] w-full text-center"
+              >
+                ESTABLISH LINK
+              </button>
+            </div>
+
+            <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-black/60 border border-[#00ffff]/20 text-xs text-[#00ffff] font-mono tracking-widest">
+              <span className="w-2 h-2 bg-[#00ff66] rounded-full" />
+              <span className="uppercase">Key signals</span>
+              <span className="text-gray-400">•</span>
+              <span className="text-white/80">Full-stack</span>
+              <span className="text-gray-400">•</span>
+              <span className="text-white/80">Realtime AI</span>
+              <span className="text-gray-400">•</span>
+              <span className="text-white/80">Motion-first UX</span>
+            </div>
+          </div>
 
           <div className="flex items-center justify-start md:justify-center gap-3 sm:gap-4 text-lg sm:text-xl md:text-2xl font-medium">
             <span className="w-10 sm:w-12 h-px bg-gradient-to-r from-transparent to-[#00ffff]" />
@@ -323,7 +408,7 @@ export function Hero() {
             <span className="text-[#00ffff]">/&gt;</span>
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center pt-6 sm:pt-8">
+          <div className="hidden sm:flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center pt-6 sm:pt-8">
             <button
               onClick={scrollToWork}
               className="cyber-button group w-full sm:w-auto"
