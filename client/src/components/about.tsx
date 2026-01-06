@@ -198,23 +198,45 @@ export function About() {
                 <h3 className="cyber-text text-lg font-bold text-[#ff00ff] mb-4">
                   MISSION_BRIEF
                 </h3>
-                <div className="space-y-4 text-gray-400 leading-relaxed text-base sm:text-lg">
-                  <p>
-                    I'm <span className="text-[#00ffff] font-semibold">REDWEYNE</span>—a digital architect specializing in next-generation web solutions. Every project is an opportunity to push technological boundaries.
-                  </p>
-                  <p>
-                    From AI-powered email management systems to zero-trace communication protocols, I build applications that don't just function—they <span className="text-[#ff00ff]">excel</span>.
-                  </p>
-                  <p>
-                    My approach: understand the core problem, eliminate unnecessary complexity, and deliver results that speak louder than promises.
-                  </p>
+                <div className="space-y-4 text-gray-400 leading-relaxed">
+                  <div className="sm:hidden">
+                    <ul className="space-y-3 text-base">
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#00ffff]">▹</span>
+                        <span>
+                          <span className="text-[#00ffff] font-semibold">REDWEYNE</span>, digital architect for next-gen web experiences.
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#00ffff]">▹</span>
+                        <span>Shipping AI email systems and zero-trace comms that do more than work—they excel.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#00ffff]">▹</span>
+                        <span>Clarify the core problem, cut the noise, deliver results louder than promises.</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="hidden sm:block space-y-4 text-base sm:text-lg">
+                    <p>
+                      I'm <span className="text-[#00ffff] font-semibold">REDWEYNE</span>—a digital architect specializing in next-generation web solutions. Every project is an opportunity to push technological boundaries.
+                    </p>
+                    <p>
+                      From AI-powered email management systems to zero-trace communication protocols, I build applications that don't just function—they <span className="text-[#ff00ff]">excel</span>.
+                    </p>
+                    <p>
+                      My approach: understand the core problem, eliminate unnecessary complexity, and deliver results that speak louder than promises.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-3 sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:snap-none sm:pb-0">
               {stats.map((stat) => (
-                <StatCard key={stat.label} {...stat} />
+                <div key={stat.label} className="min-w-[200px] snap-start sm:min-w-0">
+                  <StatCard {...stat} />
+                </div>
               ))}
             </div>
           </div>
