@@ -1,10 +1,12 @@
 import { ChevronDown, Terminal, Cpu, Zap, Gauge, Sparkles, Globe2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-function MatrixRain() {
+function MatrixRain({ isActive, prefersReducedMotion }: { isActive: boolean; prefersReducedMotion: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    if (!isActive || prefersReducedMotion) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -61,7 +63,7 @@ function MatrixRain() {
       clearInterval(interval);
       window.removeEventListener('resize', resizeCanvas);
     };
-  }, []);
+  }, [isActive, prefersReducedMotion]);
 
   return (
     <canvas
@@ -72,17 +74,19 @@ function MatrixRain() {
   );
 }
 
-function GlitchText({ children, className = "" }: { children: string; className?: string }) {
+function GlitchText({ children, className = "", isActive, prefersReducedMotion }: { children: string; className?: string; isActive: boolean; prefersReducedMotion: boolean }) {
   const [isGlitching, setIsGlitching] = useState(false);
 
   useEffect(() => {
+    if (prefersReducedMotion || !isActive) return;
+
     const glitchInterval = setInterval(() => {
       setIsGlitching(true);
       setTimeout(() => setIsGlitching(false), 200);
     }, 3000 + Math.random() * 2000);
 
     return () => clearInterval(glitchInterval);
-  }, []);
+  }, [isActive, prefersReducedMotion]);
 
   return (
     <span className={`relative inline-block ${className}`}>
@@ -109,11 +113,17 @@ function GlitchText({ children, className = "" }: { children: string; className?
   );
 }
 
-function TypewriterText({ text, delay = 0 }: { text: string; delay?: number }) {
+function TypewriterText({ text, delay = 0, prefersReducedMotion }: { text: string; delay?: number; prefersReducedMotion: boolean }) {
   const [displayText, setDisplayText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      setDisplayText(text);
+      setShowCursor(false);
+      return;
+    }
+
     const timeout = setTimeout(() => {
       let index = 0;
       const interval = setInterval(() => {
@@ -132,11 +142,13 @@ function TypewriterText({ text, delay = 0 }: { text: string; delay?: number }) {
   }, [text, delay]);
 
   useEffect(() => {
+    if (prefersReducedMotion) return;
+
     const cursorInterval = setInterval(() => {
       setShowCursor(prev => !prev);
     }, 500);
     return () => clearInterval(cursorInterval);
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <span className="font-mono">
@@ -166,7 +178,7 @@ function HexagonGrid() {
   );
 }
 
-function FloatingIcons() {
+function FloatingIcons({ isActive, prefersReducedMotion }: { isActive: boolean; prefersReducedMotion: boolean }) {
   const icons = [
     { Icon: Terminal, x: '10%', y: '20%', delay: 0 },
     { Icon: Cpu, x: '85%', y: '30%', delay: 1 },
@@ -183,7 +195,7 @@ function FloatingIcons() {
           style={{
             left: item.x,
             top: item.y,
-            animation: `float 6s ease-in-out infinite`,
+            animation: prefersReducedMotion || !isActive ? 'none' : `float 6s ease-in-out infinite`,
             animationDelay: `${item.delay}s`,
           }}
         >
@@ -229,6 +241,44 @@ function DataLines() {
 }
 
 export function Hero() {
+  const heroRef = useRef<HTMLElement | null>(null);
+  const [isHeroVisible, setIsHeroVisible] = useState(true);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [isSmUp, setIsSmUp] = useState(() => typeof window !== "undefined" ? window.innerWidth >= 640 : false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const handleChange = (event: MediaQueryListEvent) => setPrefersReducedMotion(event.matches);
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
+  useEffect(() => {
+    const onResize = () => setIsSmUp(window.innerWidth >= 640);
+    onResize();
+    window.addEventListener("resize", onResize);
+
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
+    const node = heroRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => setIsHeroVisible(entry.isIntersecting));
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, []);
   const signalCards = [
     {
       title: "Full-stack Delivery",
@@ -257,12 +307,19 @@ export function Hero() {
   return (
     <section
       id="hero"
+      ref={heroRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#050508]"
     >
-      <MatrixRain />
-      <HexagonGrid />
-      <FloatingIcons />
-      <DataLines />
+      <div className="absolute inset-0 sm:hidden bg-gradient-to-b from-[#0c111d] via-[#090b12] to-[#050508] bg-noise-soft motion-reduce:animation-none motion-reduce:transition-none" />
+
+      {isSmUp && (
+        <>
+          <MatrixRain isActive={isHeroVisible} prefersReducedMotion={prefersReducedMotion} />
+          <HexagonGrid />
+          <FloatingIcons isActive={isHeroVisible} prefersReducedMotion={prefersReducedMotion} />
+          <DataLines />
+        </>
+      )}
       <StatusBar />
 
       <div className="absolute inset-0 bg-gradient-radial from-transparent via-[#050508]/50 to-[#050508]" />
@@ -272,7 +329,7 @@ export function Hero() {
           <div className="inline-block mb-4">
             <div className="cyber-card px-6 py-2 corner-accent">
               <span className="font-mono text-sm text-[#00ffff] tracking-widest">
-                <TypewriterText text="// INITIALIZING NEURAL INTERFACE..." delay={500} />
+                <TypewriterText text="// INITIALIZING NEURAL INTERFACE..." delay={500} prefersReducedMotion={prefersReducedMotion} />
               </span>
             </div>
           </div>
