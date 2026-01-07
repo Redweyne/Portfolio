@@ -99,23 +99,23 @@ function SystemStatus() {
   }, []);
 
   return (
-    <div className="cyber-card p-6 mb-12">
+    <div className="cyber-card p-6 mb-10 sm:mb-12">
       <div className="flex items-center gap-2 mb-4">
         <Terminal className="w-5 h-5 text-[#00ffff]" />
         <span className="font-mono text-sm text-[#00ffff] tracking-widest">SYSTEM_DIAGNOSTICS</span>
       </div>
-      <div className="grid grid-cols-3 gap-4 font-mono text-xs">
-        <div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-xs sm:text-sm">
+        <div className="flex items-center justify-between sm:block sm:space-y-1">
           <span className="text-gray-500">CPU_LOAD</span>
-          <div className="text-[#00ff66]">{stats.cpu}%</div>
+          <div className="text-[#00ff66] text-sm sm:text-base">{stats.cpu}%</div>
         </div>
-        <div>
+        <div className="flex items-center justify-between sm:block sm:space-y-1">
           <span className="text-gray-500">MEMORY</span>
-          <div className="text-[#00ffff]">{stats.memory}%</div>
+          <div className="text-[#00ffff] text-sm sm:text-base">{stats.memory}%</div>
         </div>
-        <div>
+        <div className="flex items-center justify-between sm:block sm:space-y-1">
           <span className="text-gray-500">UPTIME</span>
-          <div className="text-[#ff00ff]">{stats.uptime}s</div>
+          <div className="text-[#ff00ff] text-sm sm:text-base">{stats.uptime}s</div>
         </div>
       </div>
     </div>
@@ -124,14 +124,14 @@ function SystemStatus() {
 
 export function Skills() {
   return (
-    <section id="skills" className="py-24 md:py-32 bg-[#0a0a0f] relative overflow-hidden">
+    <section id="skills" className="py-16 sm:py-24 md:py-32 bg-[#0a0a0f] relative overflow-hidden">
       <div className="absolute inset-0 cyber-grid-bg" />
       
       <div className="absolute top-1/4 left-0 w-96 h-96 bg-[#00ffff]/5 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-[#ff00ff]/5 rounded-full blur-3xl" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-16 space-y-4">
+        <div className="text-center mb-12 sm:mb-16 space-y-4">
           <div className="inline-block">
             <div className="cyber-card px-6 py-2">
               <span className="font-mono text-sm text-[#00ffff] tracking-widest">
@@ -140,12 +140,12 @@ export function Skills() {
             </div>
           </div>
           
-          <h2 className="cyber-text text-4xl sm:text-5xl md:text-6xl font-bold text-white">
+          <h2 className="cyber-text text-3xl sm:text-5xl md:text-6xl font-bold text-white">
             <span className="text-glow-cyan">TECH</span>{" "}
             <span className="text-[#ff00ff] text-glow-magenta">ARSENAL</span>
           </h2>
           
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg">
             <span className="text-[#00ffff]">&lt;</span>
             Comprehensive toolkit for engineering cutting-edge digital solutions
             <span className="text-[#00ffff]">/&gt;</span>
