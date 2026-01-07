@@ -30,7 +30,7 @@ const projects: Project[] = [
       "Priority Detection Protocol"
     ],
     techStack: ["REACT", "TYPESCRIPT", "AI/ML", "NODE.JS", "POSTGRESQL"],
-    liveUrl: "https://redweyne.com/inboxai/",
+    liveUrl: import.meta.env.BASE_URL,
     status: "OPERATIONAL"
   },
   {
@@ -46,7 +46,7 @@ const projects: Project[] = [
       "No Authentication Required"
     ],
     techStack: ["REACT", "TYPESCRIPT", "WEBSOCKET", "EXPRESS", "REDIS"],
-    liveUrl: "https://redweyne.com/tempmail",
+    liveUrl: import.meta.env.BASE_URL,
     status: "OPERATIONAL"
   }
 ];
