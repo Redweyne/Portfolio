@@ -113,14 +113,14 @@ export function About() {
   ];
 
   return (
-    <section id="about" className="py-24 md:py-32 bg-[#050508] relative overflow-hidden">
-      <div className="absolute inset-0 hex-grid opacity-5" />
+    <section id="about" className="py-16 sm:py-24 md:py-32 bg-[#050508] relative overflow-hidden">
+      <div className="absolute inset-0 hex-grid opacity-5 hidden sm:block" />
       
       <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-[#00ffff]/20 to-transparent" />
       <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-[#ff00ff]/20 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-16 space-y-4">
+        <div className="text-center mb-12 sm:mb-16 space-y-4">
           <div className="inline-block">
             <div className="cyber-card px-6 py-2">
               <span className="font-mono text-sm text-[#00ffff] tracking-widest">
@@ -129,13 +129,13 @@ export function About() {
             </div>
           </div>
           
-          <h2 className="cyber-text text-4xl sm:text-5xl md:text-6xl font-bold text-white">
+          <h2 className="cyber-text text-3xl sm:text-5xl md:text-6xl font-bold text-white">
             <span className="text-glow-cyan">OPERATOR</span>{" "}
             <span className="text-[#ff00ff] text-glow-magenta">PROFILE</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-start">
           <div className="space-y-6">
             <div className="relative group">
               <div className="absolute -inset-4 bg-gradient-to-r from-[#00ffff]/20 to-[#ff00ff]/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -189,7 +189,7 @@ export function About() {
                 <h3 className="cyber-text text-2xl font-bold text-[#00ffff] mb-4 flex items-center gap-2">
                   <span className="text-[#ff00ff]">//</span> DESIGNATION
                 </h3>
-                <p className="text-xl text-white font-medium leading-relaxed">
+                <p className="text-lg sm:text-xl text-white font-medium leading-relaxed">
                   Who I am matters far less than what I can deliver for you. My value isn't measured in credentials—it's proven through deployed solutions.
                 </p>
               </div>
@@ -198,7 +198,7 @@ export function About() {
                 <h3 className="cyber-text text-lg font-bold text-[#ff00ff] mb-4">
                   MISSION_BRIEF
                 </h3>
-                <div className="space-y-4 text-gray-400 leading-relaxed">
+                <div className="space-y-4 text-gray-400 leading-relaxed text-base sm:text-lg">
                   <p>
                     I'm <span className="text-[#00ffff] font-semibold">REDWEYNE</span>—a digital architect specializing in next-generation web solutions. Every project is an opportunity to push technological boundaries.
                   </p>
@@ -212,7 +212,7 @@ export function About() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {stats.map((stat) => (
                 <StatCard key={stat.label} {...stat} />
               ))}

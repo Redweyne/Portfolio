@@ -66,7 +66,7 @@ function MatrixRain() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 opacity-30"
+      className="absolute inset-0 opacity-30 hidden sm:block"
       style={{ mixBlendMode: 'screen' }}
     />
   );
@@ -148,7 +148,7 @@ function TypewriterText({ text, delay = 0 }: { text: string; delay?: number }) {
 
 function HexagonGrid() {
   return (
-    <div className="absolute inset-0 overflow-hidden opacity-20">
+    <div className="absolute inset-0 overflow-hidden opacity-20 hidden sm:block">
       <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="hexagons" width="50" height="43.4" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
@@ -179,7 +179,7 @@ function FloatingIcons() {
       {icons.map((item, index) => (
         <div
           key={index}
-          className="absolute text-[#00ffff] opacity-20"
+          className="absolute text-[#00ffff] opacity-20 hidden sm:block"
           style={{
             left: item.x,
             top: item.y,
@@ -203,7 +203,7 @@ function StatusBar() {
   }, []);
 
   return (
-    <div className="absolute top-20 left-4 sm:left-8 font-mono text-xs text-[#00ffff] opacity-60 space-y-1">
+    <div className="absolute top-16 left-4 sm:left-8 font-mono text-[11px] sm:text-xs text-[#00ffff] opacity-60 space-y-1 hidden sm:block">
       <div className="flex items-center gap-2">
         <span className="w-2 h-2 bg-[#00ff66] rounded-full animate-pulse" />
         <span>SYSTEM: ONLINE</span>
@@ -217,7 +217,7 @@ function StatusBar() {
 
 function DataLines() {
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden hidden sm:block">
       <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#00ffff] to-transparent opacity-30" />
       <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#ff00ff] to-transparent opacity-20" />
       <div className="absolute top-3/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#00ffff] to-transparent opacity-30" />
@@ -267,8 +267,8 @@ export function Hero() {
 
       <div className="absolute inset-0 bg-gradient-radial from-transparent via-[#050508]/50 to-[#050508]" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
-        <div className="space-y-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24 md:py-32 text-left md:text-center">
+        <div className="space-y-6 sm:space-y-8">
           <div className="inline-block mb-4">
             <div className="cyber-card px-6 py-2 corner-accent">
               <span className="font-mono text-sm text-[#00ffff] tracking-widest">
@@ -277,31 +277,31 @@ export function Hero() {
             </div>
           </div>
 
-          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tight">
+          <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black tracking-tight leading-tight">
             <GlitchText className="cyber-text bg-gradient-to-r from-[#00ffff] via-[#ff00ff] to-[#00ffff] bg-clip-text text-transparent cyber-glow">
               REDWEYNE
             </GlitchText>
           </h1>
 
-          <div className="flex items-center justify-center gap-4 text-xl sm:text-2xl md:text-3xl font-medium">
-            <span className="w-12 h-px bg-gradient-to-r from-transparent to-[#00ffff]" />
+          <div className="flex items-center justify-start md:justify-center gap-3 sm:gap-4 text-lg sm:text-xl md:text-2xl font-medium">
+            <span className="w-10 sm:w-12 h-px bg-gradient-to-r from-transparent to-[#00ffff]" />
             <span className="cyber-text text-[#00ffff] tracking-[0.3em]">
               DIGITAL ARCHITECT
             </span>
-            <span className="w-12 h-px bg-gradient-to-l from-transparent to-[#00ffff]" />
+            <span className="w-10 sm:w-12 h-px bg-gradient-to-l from-transparent to-[#00ffff]" />
           </div>
 
-          <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed font-light">
             <span className="text-[#00ffff]">&lt;</span>
             I build production-ready interfaces, realtime systems, and AI-assisted tools that feel fast, intentional, and resilient.
             <span className="text-[#00ffff]">/&gt;</span>
           </p>
 
-          <p className="text-gray-400 max-w-3xl mx-auto font-mono text-sm tracking-widest">
+          <p className="text-gray-400 max-w-3xl mx-auto font-mono text-[11px] sm:text-sm tracking-widest">
             AVAILABLE FOR HIGH-IMPACT BUILDS • PREFERRED STACK: REACT / TYPESCRIPT / NODE / POSTGRES • REMOTE-FIRST
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 pt-4">
             {signalCards.map((card) => (
               <div
                 key={card.title}
@@ -317,16 +317,16 @@ export function Hero() {
             ))}
           </div>
 
-          <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed font-light">
             <span className="text-[#00ffff]">&lt;</span>
             From the first spike to production, you get weekly, demoable progress and architecture that stays maintainable after launch.
             <span className="text-[#00ffff]">/&gt;</span>
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center pt-6 sm:pt-8">
             <button
               onClick={scrollToWork}
-              className="cyber-button group"
+              className="cyber-button group w-full sm:w-auto"
             >
               <span className="relative z-10 flex items-center gap-2">
                 ACCESS PROJECTS
@@ -336,7 +336,7 @@ export function Hero() {
             
             <button
               onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-              className="border border-[#ff00ff] text-[#ff00ff] px-8 py-3 font-mono tracking-wider hover:bg-[#ff00ff] hover:text-black transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,0,255,0.5)]"
+              className="border border-[#ff00ff] text-[#ff00ff] px-6 sm:px-8 py-3 font-mono tracking-wider hover:bg-[#ff00ff] hover:text-black transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,0,255,0.5)] w-full sm:w-auto text-center"
             >
               ESTABLISH LINK
             </button>
