@@ -112,45 +112,23 @@ function SystemStatus() {
   }, [isVisible, prefersReducedMotion]);
 
   return (
-    <div ref={ref} className="cyber-card p-3 sm:p-6 mb-8 sm:mb-12">
-      <div className="flex items-center gap-2 mb-3 sm:hidden">
-        <Terminal className="w-5 h-5 text-[#00ffff]" aria-hidden="true" />
+    <div className="cyber-card p-6 mb-10 sm:mb-12">
+      <div className="flex items-center gap-2 mb-4">
+        <Terminal className="w-5 h-5 text-[#00ffff]" />
         <span className="font-mono text-sm text-[#00ffff] tracking-widest">SYSTEM_DIAGNOSTICS</span>
       </div>
-
-      <div className="flex items-center justify-between gap-3 sm:hidden font-mono text-sm">
-        <div className="flex items-center gap-2 text-gray-300">
-          <span className="text-gray-500">CPU</span>
-          <span className="text-[#00ff66] font-semibold">{stats.cpu}%</span>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-xs sm:text-sm">
+        <div className="flex items-center justify-between sm:block sm:space-y-1">
+          <span className="text-gray-500">CPU_LOAD</span>
+          <div className="text-[#00ff66] text-sm sm:text-base">{stats.cpu}%</div>
         </div>
-        <div className="flex items-center gap-2 text-gray-300">
-          <span className="text-gray-500">MEM</span>
-          <span className="text-[#00ffff] font-semibold">{stats.memory}%</span>
+        <div className="flex items-center justify-between sm:block sm:space-y-1">
+          <span className="text-gray-500">MEMORY</span>
+          <div className="text-[#00ffff] text-sm sm:text-base">{stats.memory}%</div>
         </div>
-        <div className="flex items-center gap-2 text-gray-300">
+        <div className="flex items-center justify-between sm:block sm:space-y-1">
           <span className="text-gray-500">UPTIME</span>
-          <span className="text-[#ff00ff] font-semibold">{stats.uptime}s</span>
-        </div>
-      </div>
-
-      <div className="hidden sm:block">
-        <div className="flex items-center gap-2 mb-4">
-          <Terminal className="w-5 h-5 text-[#00ffff]" aria-hidden="true" />
-          <span className="font-mono text-sm text-[#00ffff] tracking-widest">SYSTEM_DIAGNOSTICS</span>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-sm">
-          <div className="flex items-center justify-between sm:block sm:space-y-1">
-            <span className="text-gray-500">CPU_LOAD</span>
-            <div className="text-[#00ff66] text-base">{stats.cpu}%</div>
-          </div>
-          <div className="flex items-center justify-between sm:block sm:space-y-1">
-            <span className="text-gray-500">MEMORY</span>
-            <div className="text-[#00ffff] text-base">{stats.memory}%</div>
-          </div>
-          <div className="flex items-center justify-between sm:block sm:space-y-1">
-            <span className="text-gray-500">UPTIME</span>
-            <div className="text-[#ff00ff] text-base">{stats.uptime}s</div>
-          </div>
+          <div className="text-[#ff00ff] text-sm sm:text-base">{stats.uptime}s</div>
         </div>
       </div>
     </div>
@@ -188,13 +166,13 @@ export function Skills() {
               <span className="font-mono text-sm text-[#00ffff] tracking-widest">[ SECTION_03 ]</span>
             </div>
           </div>
-
+          
           <h2 className="cyber-text text-3xl sm:text-5xl md:text-6xl font-bold text-white">
             <span className="text-glow-cyan">TECH</span>{" "}
             <span className="text-[#ff00ff] text-glow-magenta">ARSENAL</span>
           </h2>
-
-          <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-lg">
+          
+          <p className="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg">
             <span className="text-[#00ffff]">&lt;</span>
             Comprehensive toolkit for engineering cutting-edge digital solutions
             <span className="text-[#00ffff]">/&gt;</span>

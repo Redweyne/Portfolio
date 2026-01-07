@@ -98,8 +98,10 @@ export function Process() {
                 </div>
               </div>
 
-              <h3 className="text-white text-xl sm:text-2xl font-bold cyber-text">{phase.title}</h3>
-              <p className="text-gray-300 leading-relaxed text-base sm:text-lg">{phase.description}</p>
+              <h3 className="text-white text-xl sm:text-2xl font-bold cyber-text">
+                {phase.title}
+              </h3>
+              <p className="text-gray-300 leading-relaxed text-sm sm:text-base">{phase.description}</p>
 
               <div className="space-y-2">
                 {phase.highlights.map((highlight) => (

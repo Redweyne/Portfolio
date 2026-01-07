@@ -335,46 +335,10 @@ export function Hero() {
           </div>
 
           <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black tracking-tight leading-tight">
-            <GlitchText
-              className="cyber-text bg-gradient-to-r from-[#00ffff] via-[#ff00ff] to-[#00ffff] bg-clip-text text-transparent cyber-glow"
-              isActive={isHeroVisible}
-              prefersReducedMotion={prefersReducedMotion}
-            >
+            <GlitchText className="cyber-text bg-gradient-to-r from-[#00ffff] via-[#ff00ff] to-[#00ffff] bg-clip-text text-transparent cyber-glow">
               REDWEYNE
             </GlitchText>
           </h1>
-
-          <div className="sm:hidden w-full bg-black/40 border border-[#00ffff]/20 rounded-2xl p-4 space-y-3 cyber-card bg-noise-soft">
-            <div className="flex flex-col gap-2">
-              <button
-                onClick={scrollToWork}
-                className="cyber-button group w-full"
-              >
-                <span className="relative z-10 flex items-center gap-2 justify-center">
-                  ACCESS PROJECTS
-                  <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
-                </span>
-              </button>
-
-              <button
-                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                className="border border-[#ff00ff] text-[#ff00ff] px-6 py-3 font-mono tracking-wider hover:bg-[#ff00ff] hover:text-black transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,0,255,0.5)] w-full text-center"
-              >
-                ESTABLISH LINK
-              </button>
-            </div>
-
-            <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-black/60 border border-[#00ffff]/20 text-xs text-[#00ffff] font-mono tracking-widest">
-              <span className="w-2 h-2 bg-[#00ff66] rounded-full" />
-              <span className="uppercase">Key signals</span>
-              <span className="text-gray-400">•</span>
-              <span className="text-white/80">Full-stack</span>
-              <span className="text-gray-400">•</span>
-              <span className="text-white/80">Realtime AI</span>
-              <span className="text-gray-400">•</span>
-              <span className="text-white/80">Motion-first UX</span>
-            </div>
-          </div>
 
           <div className="flex items-center justify-start md:justify-center gap-3 sm:gap-4 text-lg sm:text-xl md:text-2xl font-medium">
             <span className="w-10 sm:w-12 h-px bg-gradient-to-r from-transparent to-[#00ffff]" />
@@ -416,7 +380,7 @@ export function Hero() {
             <span className="text-[#00ffff]">/&gt;</span>
           </p>
 
-          <div className="hidden sm:flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center pt-6 sm:pt-8">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center pt-6 sm:pt-8">
             <button
               onClick={scrollToWork}
               className="cyber-button group w-full sm:w-auto"
