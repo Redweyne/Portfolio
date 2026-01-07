@@ -4,7 +4,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { insertContactMessageSchema, type InsertContactMessage } from "@shared/schema";
-import { Github, Linkedin, Mail, Send, CheckCircle2, Terminal, Wifi, AlertCircle } from "lucide-react";
+import { Send, CheckCircle2, Terminal, Wifi, AlertCircle } from "lucide-react";
 import { useState, useEffect, forwardRef } from "react";
 
 interface TerminalInputProps {
@@ -121,20 +121,14 @@ export function Contact() {
     submitMutation.mutate(data);
   };
 
-  const socialLinks = [
-    { icon: <Github className="h-5 w-5" />, label: "GITHUB", url: "https://github.com/Redweyne", code: "GH-001" },
-    { icon: <Linkedin className="h-5 w-5" />, label: "LINKEDIN", url: "https://www.linkedin.com/in/redweyne", code: "LI-002" },
-    { icon: <Mail className="h-5 w-5" />, label: "DIRECT_MAIL", url: "mailto:hello@redweyne.com", code: "ML-003" }
-  ];
-
   return (
-    <section id="contact" className="py-24 md:py-32 bg-[#0a0a0f] relative overflow-hidden">
+    <section id="contact" className="py-16 sm:py-24 md:py-32 bg-[#0a0a0f] relative overflow-hidden">
       <div className="absolute inset-0 cyber-grid-bg" />
       
-      <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#00ffff]/30 to-transparent" />
+      <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#00ffff]/30 to-transparent hidden sm:block" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-16 space-y-4">
+        <div className="text-center mb-12 sm:mb-16 space-y-4">
           <div className="inline-block">
             <div className="cyber-card px-6 py-2">
               <span className="font-mono text-sm text-[#00ffff] tracking-widest">
@@ -143,19 +137,19 @@ export function Contact() {
             </div>
           </div>
           
-          <h2 className="cyber-text text-4xl sm:text-5xl md:text-6xl font-bold text-white">
+          <h2 className="cyber-text text-3xl sm:text-5xl md:text-6xl font-bold text-white">
             <span className="text-glow-cyan">ESTABLISH</span>{" "}
             <span className="text-[#ff00ff] text-glow-magenta">UPLINK</span>
           </h2>
           
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg">
             <span className="text-[#00ffff]">&lt;</span>
             Initiate secure communication channel for project collaboration
             <span className="text-[#00ffff]">/&gt;</span>
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
           <div className="lg:col-span-2">
             <div className="cyber-card overflow-hidden">
               <div className="bg-[#0a0a0f] border-b border-[#00ffff]/20 px-6 py-4 flex items-center gap-3">
@@ -225,32 +219,6 @@ export function Contact() {
           </div>
 
           <div className="space-y-6">
-            <div className="cyber-card p-6">
-              <h3 className="font-mono text-sm text-[#00ffff] tracking-widest mb-6 flex items-center gap-2">
-                <span className="text-[#ff00ff]">//</span> NETWORK_NODES
-              </h3>
-              <div className="space-y-3">
-                {socialLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-4 p-3 border border-[#00ffff]/20 hover:border-[#00ffff] hover:bg-[#00ffff]/5 transition-all group"
-                  >
-                    <div className="text-[#00ffff] group-hover:text-[#ff00ff] transition-colors">
-                      {link.icon}
-                    </div>
-                    <div className="flex-1">
-                      <div className="font-mono text-sm text-white">{link.label}</div>
-                      <div className="font-mono text-xs text-gray-500">{link.code}</div>
-                    </div>
-                    <div className="font-mono text-xs text-[#00ff66]">ACTIVE</div>
-                  </a>
-                ))}
-              </div>
-            </div>
-
             <ConnectionStatus />
 
             <div className="cyber-card p-6 border-[#00ff66]/30">
