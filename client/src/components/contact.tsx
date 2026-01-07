@@ -162,7 +162,7 @@ export function Contact() {
       <div className="absolute inset-0 cyber-grid-bg" />
       
       <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#00ffff]/30 to-transparent hidden sm:block" />
-  
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-12 sm:mb-16 space-y-4">
           <div className="inline-block">
