@@ -118,22 +118,21 @@ export function Process() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-3 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:snap-none md:pb-0">
           {guarantees.map((item) => (
-            <div
-              key={item.label}
-              className="cyber-card p-5 flex flex-col gap-3 border border-[#00ffff]/10 hover:border-[#00ffff]/50 transition-all duration-300"
-            >
-              <div className="flex items-center gap-3">
-                <item.icon className="w-5 h-5 text-[#00ffff]" />
-                <span className="font-mono text-xs text-gray-500 tracking-widest">
-                  {item.label}
-                </span>
+            <div key={item.label} className="min-w-[240px] snap-start md:min-w-0">
+              <div className="cyber-card p-5 flex flex-col gap-3 border border-[#00ffff]/10 hover:border-[#00ffff]/50 transition-all duration-300 h-full">
+                <div className="flex items-center gap-3">
+                  <item.icon className="w-5 h-5 text-[#00ffff]" />
+                  <span className="font-mono text-xs text-gray-500 tracking-widest">
+                    {item.label}
+                  </span>
+                </div>
+                <div className="text-3xl font-bold text-white">
+                  <span className="text-[#00ffff]">{item.value}</span>
+                </div>
+                <p className="text-gray-400 text-base leading-relaxed">{item.description}</p>
               </div>
-              <div className="text-3xl font-bold text-white">
-                <span className="text-[#00ffff]">{item.value}</span>
-              </div>
-              <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
             </div>
           ))}
         </div>
